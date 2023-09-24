@@ -46,15 +46,15 @@ Option Explicit
 'Option Compare Database
 'Option Explicit
 '
-'  place this at the top of the Forms code module
+''  place this at the top of the Forms code module
 'Private sl As New SizeAndLocation
 '
-'  place this in the Forms Open Event
+''  place this in the Forms Open Event
 'Private Sub Form_Open(Cancel As Integer)
 '   Set sl.MyForm = Me.Form
 'End Sub
 '
-'  place this in the Forms Unload Event
+''  place this in the Forms Unload Event
 'Private Sub Form_Unload(Cancel As Integer)
 '   sl.Save
 '   Set sl = Nothing
@@ -182,7 +182,7 @@ Public Sub Load()
    ' try to replqce the default size and location values with data from the table
    Set rs = CurrentDb.OpenRecordset(TABLENAME, dbOpenDynaset)
    
-   sqlStr = "FormName=" & "'" & frm.name & "'"
+   sqlStr = FORMNAME & "=" & "'" & frm.name & "'"
    rs.FindFirst sqlStr
    
    ' if the record for this form exists, get its values and replace the defaults
@@ -203,12 +203,15 @@ Public Sub Load()
       rs.Update
    End If
    
-   rs.Close
-   Set rs = Nothing
-   
 err1:
    
-   ' size and position the form
+   If (Not IsNull(rs)) Then
+      rs.Close
+   End If
+   
+   Set rs = Nothing
+   
+   ' set size and position of the form
    frm.Move fl, ft, fw, fh
    
    On Error GoTo 0
