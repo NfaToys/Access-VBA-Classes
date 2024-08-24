@@ -2,6 +2,7 @@
 
 ### SizeAndLocation.cls module
 
+' This class saves and restores your forms size and location between openings.
 ' To use this class set your Form "Border Style" to "Sizable" and "Min Max Buttons" to "None"
 ' this code does NOT include support to restore a Form to a Maximized or Minimized state.
 '
